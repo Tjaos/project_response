@@ -11,11 +11,25 @@ export default {
     <div class="button"><FaHandHoldingDollar /> Calcule o Valor da Viagem</div>
     <div>
       <p class="low_text">Destino</p>
-      <input type="text" class="input" placeholder="Selecione o Destino"/>
+      <select v-model="selectedDestination" class="input" >
+        <option disabled :value="selecioneODestino">Selecione o Destino</option>
+        <option :value="BeloHorizonte">Belo Horizonte</option>
+        <option :value="Campinas">Campinas</option>
+        <option :value="Curitiba">Curitiba</option>
+        <option :value="Fortaleza">Fortaleza</option>
+        <option :value="Manaus">Manaus</option>
+        <option :value="Natal">Natal</option>
+        <option :value="Recife">Recife</option>
+        <option :value="RioDeJaneiro">Rio de Janeiro</option>
+        <option :value="Salvador">Salvador</option>
+        <option :value="SaoPaulo">São Paulo</option>
+
+
+      </select>
     </div>
     <div>
       <p class="low_text">Data</p>
-      <input type="date" class="input" placeholder="Selecione uma data"/>
+      <input type="date" class="input" placeholder="Selecione uma data" />
     </div>
     <Button>Buscar</Button>
   </div>
@@ -29,15 +43,14 @@ export default {
   text-align: center;
   align-items: center;
   justify-content: center;
-
 }
-.low_text{
+.low_text {
   width: 196px;
   font-size: 12px;
   text-align: left;
   padding-left: 40px;
 }
-.input{
+.input {
   padding: 5px;
   border: 1px solid gray;
   border-radius: 5px;

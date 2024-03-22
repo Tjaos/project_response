@@ -1,37 +1,51 @@
 <script>
-import { FaHandHoldingDollar } from '@kalimahapps/vue-icons'
+import { FaHandHoldingDollar } from '@kalimahapps/vue-icons';
 export default {
+  data(){
+    return{
+      selectedDestination: "",
+      selectedDate: "",
+      destinations:[
+      "Belo Horizonte",
+        "Campinas",
+        "Curitiba",
+        "Fortaleza",
+        "Manaus",
+        "Natal",
+        "Recife",
+        "Rio de Janeiro",
+        "Salvador",
+        "São Paulo"
+      ]
+    };
+  },
+  methods:{
+    searchTrip(){
+      console.log("Buscando viagem para: ", this.selectedDestination);
+      console.log("Data selecionada: ", this.selectedDate);
+    }
+  },
   components: {
     FaHandHoldingDollar
   }
 }
 </script>
+
 <template>
   <div class="searchInputs">
-    <div class="button"><FaHandHoldingDollar /> Calcule o Valor da Viagem</div>
+    <div class="button" @click="searchTrip" ><FaHandHoldingDollar /> Calcule o Valor da Viagem</div>
     <div>
       <p class="low_text">Destino</p>
       <select v-model="selectedDestination" class="input" >
-        <option disabled :value="selecioneODestino">Selecione o Destino</option>
-        <option :value="BeloHorizonte">Belo Horizonte</option>
-        <option :value="Campinas">Campinas</option>
-        <option :value="Curitiba">Curitiba</option>
-        <option :value="Fortaleza">Fortaleza</option>
-        <option :value="Manaus">Manaus</option>
-        <option :value="Natal">Natal</option>
-        <option :value="Recife">Recife</option>
-        <option :value="RioDeJaneiro">Rio de Janeiro</option>
-        <option :value="Salvador">Salvador</option>
-        <option :value="SaoPaulo">São Paulo</option>
-
-
+        <option disabled value="">Selecione o Destino</option>
+        <option v-for="destination in destinations" :key="destination" :value="destination">{{ destination }}</option>
       </select>
     </div>
     <div>
       <p class="low_text">Data</p>
-      <input type="date" class="input" placeholder="Selecione uma data" />
+      <input type="date" class="input" v-model="selectedDate" placeholder="Selecione uma data" />
     </div>
-    <Button>Buscar</Button>
+    <Button @click="searchTrip">Buscar</Button>
   </div>
 </template>
 <style scoped>
@@ -56,5 +70,16 @@ export default {
   border-radius: 5px;
   width: 196px;
   margin-bottom: 20px;
+}
+.button{
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button:hover{
+  background-color: #0056b3;
 }
 </style>

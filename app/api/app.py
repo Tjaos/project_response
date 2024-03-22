@@ -21,6 +21,14 @@ def clean_string(string):
     cleaned_string = unidecode(string).lower()
     return cleaned_string
 
+def get_duration_in_hours(duration_string):
+    if duration_string.endswith('h'):
+        return int(duration_string[:-1])
+    else:
+        return int(duration_string)
+
+
+
 # Buscar viagens
 @app.route('/', methods=['GET'])
 def get_trips():
@@ -34,15 +42,19 @@ def get_trips():
     destination_clean = clean_string(destination)
     # Filtro de mensagens
     
-    filtered_message = [trip for trip in data if clean_string(trip['city']) == destination_clean]
+    filtered_trips = [trip for trip in data if clean_string(trip['city']) == destination_clean]
 
-    if not filtered_message:
+    if not filtered_trips:
         return jsonify({'mensagem': f'Não foram encontradas viagens para o destino "{destination}"'}), 404
 
 
     # Encontra a viagem mais rápida e a mais econômica entre elas
-    more_fast_trip = min(filtered_message, key=lambda x: x['duration'])
-    more_economic_trip = min(filtered_message, key=lambda x: float(x['price_econ'][3:]))
+    more_economic_trip = min(filtered_trips, key=lambda x: float(x['price_econ'][3:]))
+    
+    
+    more_fast_trip = min(filtered_trips, key=lambda x: (get_duration_in_hours(x['duration'].split(' ')[0]), float(x['price_confort'][3:])))
+
+    
 
     # Retorna os detalhes das viagens
     response = {

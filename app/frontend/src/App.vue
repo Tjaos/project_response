@@ -66,7 +66,9 @@ body {
   display: flex;
   height: fit-content;
   margin-top: 260px;
+  margin-left: 40px;
   flex-direction: column;
+  background-color: #fff;
 }
 .tripContent {
   display: flex;

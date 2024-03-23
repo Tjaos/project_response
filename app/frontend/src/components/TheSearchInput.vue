@@ -90,7 +90,7 @@ export default {
       </div>
       <Button @click="searchTrip">Buscar</Button>
     </div>
-    <div>
+    <div style="padding: 64px;">
       <TheSearchOutput
         :economicTrip="tripData.economic"
         :fastConfortTrip="tripData.fastConfort"
@@ -105,9 +105,11 @@ export default {
 .main{
   display: flex;
   flex-direction: row;
+  background-color: #fff;
 }
 .searchInputs {
-  padding: 100px 20px;
+  padding: 10px 20px;
+  margin-left: 40px;
   background-color: #f3f3f3;
   width: 280px;
   height: 380px;

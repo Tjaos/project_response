@@ -49,26 +49,26 @@ def get_trips():
 
 
     # Encontra a viagem mais rápida e a mais econômica entre elas
-    more_economic_trip = min(filtered_trips, key=lambda x: float(x['price_econ'][3:]))
+    economic_trip = min(filtered_trips, key=lambda x: float(x['price_econ'][3:]))
     
     
-    more_fast_trip = min(filtered_trips, key=lambda x: (get_duration_in_hours(x['duration'].split(' ')[0]), float(x['price_confort'][3:])))
+    fast_confort_trip = min(filtered_trips, key=lambda x: (get_duration_in_hours(x['duration'].split(' ')[0]), float(x['price_confort'][3:])))
 
     
 
     # Retorna os detalhes das viagens
     response = {
-        'more_fast_trip': {
-            'company_name': more_fast_trip['name'],
-            'bus_bed':more_fast_trip['bed'],
-            'travel_time': more_fast_trip['duration'],
-            'total_cost': more_fast_trip['price_confort'],
+        'fast_confort_trip': {
+            'company_name': fast_confort_trip['name'],
+            'bus_bed':fast_confort_trip['bed'],
+            'travel_time': fast_confort_trip['duration'],
+            'total_cost': fast_confort_trip['price_confort'],
         },
-        'more_economic_trip': {
-            'company_name': more_economic_trip['name'],
-            'bus_bed':more_economic_trip['bed'],
-            'travel_time': more_economic_trip['duration'],
-            'total_cost': more_economic_trip['price_econ']
+        'economic_trip': {
+            'company_name': economic_trip['name'],
+            'bus_seat':economic_trip['seat'],
+            'travel_time': economic_trip['duration'],
+            'total_cost': economic_trip['price_econ']
         }
     }
 

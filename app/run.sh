@@ -17,4 +17,4 @@ cd ..
 # Iniciar o frontend
 cd frontend
 npm run dev
-sleep 10
+sleep 5

@@ -15,7 +15,6 @@
 .main{
     margin: 0;
     padding: 0;
-    border: 1px solid red;
 }
 .logoDiv{
     width: 260px;

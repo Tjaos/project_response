@@ -24,12 +24,14 @@ export default {
         economic: null,
         fastConfort: null
       },
-      showTripResults:false
+      showTripResults:false,
+      showInitialMessage:true
     };
   },
   methods: {
     searchTrip() {
       if (this.selectedDestination && this.selectedDate) {
+        this.showInitialMessage = false;
         axios
           .get(`http://localhost:3000?destination=${this.selectedDestination}`, {
             params: {
@@ -53,13 +55,25 @@ export default {
             };
             this.tripData = tripData;
             this.showTripResults = true;
+            this.showInitialMessage = false;
+          
           })
           .catch((error) => {
             console.error('Erro ao buscar viagem: ', error)
+            this.showInitialMessage = false;
+            
           })
       } else {
         console.error('Por favor, selecione um destino e uma data.')
+        alert('Insira os valores para realizar a cotação.')
       }
+    },
+    clearResults() {
+      this.selectedDestination = '';
+      this.selectedDate = '';
+      this.tripData = { economic: null, fastConfort: null };
+      this.showTripResults = false;
+      this.showInitialMessage = true;
     }
   },
   components: {
@@ -72,7 +86,7 @@ export default {
 <template>
   <div class="main">
     <div class="searchInputs">
-      <div class="button" @click="searchTrip">
+      <div class="subtitle" @click="searchTrip">
         <FaHandHoldingDollar /> Calcule o Valor da Viagem
       </div>
       <div>
@@ -88,14 +102,20 @@ export default {
         <p class="low_text">Data</p>
         <input type="date" class="input" v-model="selectedDate" placeholder="Selecione uma data" />
       </div>
-      <Button @click="searchTrip">Buscar</Button>
+      <Button @click="searchTrip" class="buttonSubmit">Buscar</Button>
     </div>
     <div style="padding: 64px;">
       <TheSearchOutput
-        :economicTrip="tripData.economic"
-        :fastConfortTrip="tripData.fastConfort"
-        v-if="showTripResults"
+      :economicTrip="tripData.economic"
+      :fastConfortTrip="tripData.fastConfort"
+      v-if="showTripResults"
       />
+    </div>
+    <div class="mensagem_inicial" v-if="showInitialMessage">
+      <p>Nenhum dado Selecionado.</p>
+    </div>
+    <div class="buttonClear_box">
+      <Button @click="clearResults" class="buttonClear">Limpar Resultados</Button> 
     </div>
   </div>
 </template>
@@ -130,15 +150,40 @@ export default {
   width: 196px;
   margin-bottom: 20px;
 }
-.button {
+.subtitle {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+  color: #000;
+  font-size: 20px;
+}
+
+.buttonSubmit{
+  background-color: #02A8B5;
+  padding: 10px 60px;
   border: none;
   border-radius: 5px;
+  margin-top: 30px;
+}
+.buttonClear_box{
+  margin-top: 340px;
+  margin-right: 20px;
+}
+.buttonClear{
+  background-color: #fce446;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+.buttonSubmit:hover {
+  background-color: #0497a1;
   cursor: pointer;
 }
-.button:hover {
-  background-color: #0056b3;
+.buttonClear:hover {
+  background-color: #e2cc3d;
+  cursor: pointer;
+}
+.mensagem_inicial{
+  font-size: 20px;
+  margin-top: 130px;
 }
 </style>

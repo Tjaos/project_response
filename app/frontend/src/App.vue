@@ -1,7 +1,8 @@
 <script setup>
-import TheLeftBar from './components/TheLeftBar.vue'
-import TheSearchInput from './components/TheSearchInput.vue'
-import TheSearchOutput from './components/TheSearchOutput.vue'
+import TheLeftBar from './components/TheLeftBar.vue';
+import TheSearchInput from './components/TheSearchInput.vue';
+import TheSearchOutput from './components/TheSearchOutput.vue';
+import { FaTruckArrowRight } from "@kalimahapps/vue-icons";
 
 import { ref } from 'vue'
 
@@ -18,6 +19,7 @@ const handleSearchResults = (data) => {
   seat.value = data.seat
   price.value = data.price
 }
+
 </script>
 
 <template>
@@ -25,7 +27,9 @@ const handleSearchResults = (data) => {
     <TheLeftBar class="TheLeftBar" />
     <div class="TheSearchTrip">
       
-      <h3 class="title">Calculadora de Viagem</h3>
+      <div class="title">
+        <h3><FaTruckArrowRight class="truckIcon"/> Calculadora de Viagem</h3>
+      </div>
       <TheSearchInput class="" @search-results="handleSearchResults" />
       <TheSearchOutput
         :name="name"
@@ -59,8 +63,13 @@ body {
 }
 
 .title{
-  width: 100%;
+  width: 99%;
   border: 1px solid bisque;
+  align-items: start;
+  justify-content: center;
+  padding-left: 10px;
+  background-color: #2A2F42;
+  color: #fff;
 }
 .TheSearchTrip {
   display: flex;
@@ -74,5 +83,8 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+.truckIcon{
+  padding-right: 10px;
 }
 </style>
